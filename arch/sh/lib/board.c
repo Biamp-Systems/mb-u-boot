@@ -46,7 +46,7 @@ static int sh_flash_init(void)
 	DECLARE_GLOBAL_DATA_PTR;
 
 	gd->bd->bi_flashsize = flash_init();
-	printf("FLASH: %ldMB\n", gd->bd->bi_flashsize / (1024*1024));
+	printf("Flash: %ldMB\n", gd->bd->bi_flashsize / (1024*1024));
 
 	return 0;
 }

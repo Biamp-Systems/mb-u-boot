@@ -67,7 +67,7 @@ static void flash_cs_fixup(void)
 	 */
 	flash_sel = !((pca953x_get_val(CONFIG_SYS_I2C_PCA953X_ADDR0) &
 			CONFIG_SYS_PCA953X_C0_FLASH_PASS_CS));
-	printf("FLASH: Executed from FLASH%d\n", flash_sel ? 2 : 1);
+	printf("Flash: Executed from flash%d\n", flash_sel ? 2 : 1);
 
 	if (flash_sel) {
 		out_be32(&lbc->br0, CONFIG_SYS_BR1_PRELIM);
