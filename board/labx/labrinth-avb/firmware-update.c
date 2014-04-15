@@ -1,7 +1,9 @@
 #include "hush.h"
+#ifndef MINI_EXPANDER
 #include "spi-mailbox.h"
 #include "FirmwareUpdate_unmarshal.h"
 #include "BackplaneBridge_unmarshal.h"
+#endif
 #include "FirmwareUpdate.h"
 #include "xparameters.h"
 #include <linux/types.h>
@@ -273,6 +275,7 @@ int DoFirmwareUpdate(void)
   uint32_t reqSize = sizeof(RequestMessageBuffer_t);
   uint32_t respSize;
 
+#ifndef MINI_EXPANDER
   /* Enable the SPI mailbox, which raises the BP_ATTN signal to indicate to
    * the host that we are ready.
    */
@@ -311,7 +314,7 @@ int DoFirmwareUpdate(void)
     /* Re-set the max request size for the next iteration */
     reqSize = sizeof(RequestMessageBuffer_t);
   }
-
+#endif
   return 1;
 }
 
@@ -397,6 +400,7 @@ int CheckFirmwareUpdate(void)
     RuntimeUpdateRecord *recordPtr;
     u32 lastRevision = 0x00000000;
 
+#ifdef SKIP_IMAGECRCS_CHECK
     printf("Checking run-time images for integrity and coherence...\n");
 
     // Initialize a pointer to the image CRC partition
@@ -481,6 +485,7 @@ int CheckFirmwareUpdate(void)
 
       printf("good!\n");
     } // for(each runtime image)
+#endif
 
     if(doUpdate == 0) printf("Booting runtime images, release revision %d.%d.%d.%d\n",
                              ((lastRevision >> 24) & 0x0FF),
