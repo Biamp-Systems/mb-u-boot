@@ -400,7 +400,7 @@ int CheckFirmwareUpdate(void)
     RuntimeUpdateRecord *recordPtr;
     u32 lastRevision = 0x00000000;
 
-#ifdef SKIP_IMAGECRCS_CHECK
+#ifndef SKIP_IMAGECRCS_CHECK
     printf("Checking run-time images for integrity and coherence...\n");
 
     // Initialize a pointer to the image CRC partition
