@@ -1,10 +1,11 @@
+#include <config.h>
 #include "hush.h"
 #ifndef MINI_EXPANDER
 #include "spi-mailbox.h"
 #include "FirmwareUpdate_unmarshal.h"
 #include "BackplaneBridge_unmarshal.h"
-#endif
 #include "FirmwareUpdate.h"
+#endif
 #include "xparameters.h"
 #include <linux/types.h>
 #include <command.h>
@@ -35,7 +36,9 @@
 #define CMD_FORMAT_BUF_SZ (256)
 static char commandBuffer[CMD_FORMAT_BUF_SZ];
 
+#ifndef MINI_EXPANDER
 AvbDefs__ErrorCode executeFirmwareUpdate(void);
+#endif 
 
 /* Structure capturing the information for each update-able runtime
  * firmware image for use in pre-boot check.
@@ -43,6 +46,13 @@ AvbDefs__ErrorCode executeFirmwareUpdate(void);
 typedef struct {
   char     *imageName;
 } RuntimeImageType;
+
+#ifdef MINI_EXPANDER
+typedef enum
+{
+  e_IMAGE_FPGA, e_IMAGE_KERNEL, e_IMAGE_ROOTFS, e_IMAGE_USER_ROMFS, e_IMAGE_SETTINGSFS, e_IMAGE_DEVICE_TREE, e_IMAGE_NUM_TYPES
+} FirmwareUpdate__RuntimeImageType;
+#endif
 
 /* Array of strings containing the base name of each run-time image.
  * This is used to determine the environment strings to inspect for
@@ -90,11 +100,14 @@ typedef struct {
   uint32_t             bytesReceived;
   uint8_t             *fwImageBase;
   uint8_t             *fwImagePtr;
+#ifndef MINI_EXPANDER
   string_t             cmd;
+#endif
 } FirmwareUpdateCtxt_t;
 
 FirmwareUpdateCtxt_t fwUpdateCtxt;
 
+#ifndef MINI_EXPANDER
 /**
  * Accessor for the ExecutingImageType attribute; this tells the client
  * that we are in the bootloader, not the main image.
@@ -262,6 +275,7 @@ AvbDefs__ErrorCode sendCommand(string_t cmd) {
 /* Statically-allocated request and response buffers for use with IDL */
 static RequestMessageBuffer_t request;
 static ResponseMessageBuffer_t response;
+#endif
 
 /**
  * Perform a firmware update or configure the legacy packet bridge
@@ -272,10 +286,10 @@ static ResponseMessageBuffer_t response;
  */
 int DoFirmwareUpdate(void)
 {
+#ifndef MINI_EXPANDER
   uint32_t reqSize = sizeof(RequestMessageBuffer_t);
   uint32_t respSize;
 
-#ifndef MINI_EXPANDER
   /* Enable the SPI mailbox, which raises the BP_ATTN signal to indicate to
    * the host that we are ready.
    */
