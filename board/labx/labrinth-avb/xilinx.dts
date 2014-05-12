@@ -309,6 +309,26 @@
 			xlnx,param-words = <0x400>;
 			xlnx,parameter-interlock-fifo = <0x1>;
 		} ;
+		backplane_bridge: legacy-bridge@820e0000 {
+			compatible = "xlnx,labrinth-legacy-bridge-1.00.a";
+			device_type = "network";
+			phy-mdio-controller = <&eth0>;
+			reg = < 0x820e0000 0x10000 >;
+			xlnx,phy-addr = <0x4>;
+			xlnx,phy-type = <0x1>;
+			xlnx,rx-filters-per-port = <0x8>;
+		} ;
+		biamp_spi_mailbox_0: biamp-spi-mailbox@820c0000 {
+			compatible = "xlnx,biamp-spi-mailbox-1.00.a";
+			interrupt-parent = <&irq_control>;
+			interrupts = < 9 2 >;
+			reg = < 0x820c0000 0x10000 >;
+			xlnx,device = "6slx45";
+			xlnx,family = "spartan6";
+			xlnx,include-dphase-timer = <0x0>;
+			xlnx,num-ports = <0x1>;
+			xlnx,package = "csg324";
+		} ;
 		eth0: ethernet@82050000 {
 			compatible = "xlnx,labx-ethernet-1.03.a";
 			device_type = "network";
@@ -349,7 +369,7 @@
 			xlnx,mplb-smallest-slave = <0x20>;
 			xlnx,npi-data-width = <0x20>;
 			xlnx,num-clock-domains = <0x1>;
-			xlnx,num-streams = <0x40>;
+			xlnx,num-streams = <0x20>;
 			xlnx,package = "csg324";
 			xlnx,param-address-width = <0xa>;
 		} ;
@@ -358,14 +378,14 @@
 			interrupt-parent = <&irq_control>;
 			interrupts = < 6 2 >;
 			reg = < 0x82090000 0x10000 >;
-			xlnx,cache-address-width = <0xb>;
-			xlnx,cache-data-width = <0x8>;
+			xlnx,cache-address-width = <0x9>;
+			xlnx,cache-data-width = <0x20>;
 			xlnx,cache-data-words = <0x200>;
-			xlnx,cache-enable-width = <0x1>;
+			xlnx,cache-enable-width = <0x4>;
 			xlnx,cache-ring-size = <0x6>;
 			xlnx,device = "6slx45";
 			xlnx,family = "spartan6";
-			xlnx,has-internal-cache-ram = <0x0>;
+			xlnx,has-internal-cache-ram = <0x1>;
 			xlnx,include-dphase-timer = <0x0>;
 			xlnx,is-dual-headed = <0x0>;
 			xlnx,num-clock-domains = <0x1>;
@@ -472,7 +492,7 @@
 			interrupt-controller ;
 			reg = < 0x82000000 0x10000 >;
 			xlnx,kind-of-intr = <0x31>;
-			xlnx,num-intr-inputs = <0xd>;
+			xlnx,num-intr-inputs = <0xe>;
 		} ;
 		labx_ptp0: labx-ptp@82080000 {
 			compatible = "xlnx,labx-ptp-1.06.a", "xlnx,labx-ptp-1.00.a";
@@ -504,26 +524,26 @@
 			xlnx,timer-prescaler = <0x3e8>;
 		} ;
 		labx_tdm_audio_0: labx-tdm-audio@820b0000 {
-			compatible = "xlnx,labx-tdm-audio-1.04.a", "xlnx,labx-tdm-audio-1.00.a";
+			compatible = "xlnx,labx-tdm-audio-1.04.b", "xlnx,labx-tdm-audio-1.00.a";
 			interrupt-parent = <&irq_control>;
-			interrupts = < 9 2 >;
+			interrupts = < 10 2 >;
 			reg = < 0x820b0000 0x10000 >;
 			xlnx,device = "6slx45";
 			xlnx,ext-cache-addr-width = <0x7>;
 			xlnx,family = "spartan6";
 			xlnx,has-dynamic-sample-rates = <0x1>;
 			xlnx,has-pin-loopback = <0x0>;
-			xlnx,has-tdm-analyzer = <0x1>;
+			xlnx,has-tdm-analyzer = <0x0>;
 			xlnx,has-tdm-loopback = <0x0>;
 			xlnx,has-tdm-slave-manager = <0x0>;
 			xlnx,include-dphase-timer = <0x0>;
 			xlnx,is-ext-dma-shared = <0x1>;
 			xlnx,local-osc-ratio = <0x400>;
-			xlnx,max-num-streams = <0x40>;
+			xlnx,max-num-streams = <0x20>;
 			xlnx,mclk-ratio = <0x400>;
 			xlnx,package = "csg324";
-			xlnx,packetizer-cache-addr-width = <0xb>;
-			xlnx,packetizer-cache-data-width = <0x8>;
+			xlnx,packetizer-cache-addr-width = <0x9>;
+			xlnx,packetizer-cache-data-width = <0x20>;
 			xlnx,packetizer-cache-data-words = <0x200>;
 			xlnx,param-address-width = <0xa>;
 			xlnx,redundant = <0x0>;
@@ -534,7 +554,7 @@
 			xlnx,slave-interconnect = "PLB";
 			xlnx,slave-native-dwidth = <0x20>;
 			xlnx,tdm-lane-count = <0x4>;
-			xlnx,tdm-max-burst-multiple = <0x4>;
+			xlnx,tdm-max-burst-multiple = <0x1>;
 			xlnx,tdm-max-slot-density = <0x8>;
 			xlnx,tdm-min-burst-length = <0x4>;
 			xlnx,tdm-num-receivers = <0x1>;
@@ -586,7 +606,7 @@
 		xps_gpio_0: gpio@820f0000 {
 			compatible = "xlnx,xps-gpio-2.00.a", "xlnx,xps-gpio-1.00.a";
 			interrupt-parent = <&irq_control>;
-			interrupts = < 10 2 >;
+			interrupts = < 11 2 >;
 			reg = < 0x820f0000 0x10000 >;
 			xlnx,all-inputs = <0x0>;
 			xlnx,all-inputs-2 = <0x0>;
@@ -599,39 +619,6 @@
 			xlnx,is-dual = <0x0>;
 			xlnx,tri-default = <0xffffffff>;
 			xlnx,tri-default-2 = <0xffffffff>;
-		} ;
-		xps_spi_0: xps-spi@820e0000 {
-                        #address-cells = <1>;
-                        #size-cells = <0>;
-			compatible = "xlnx,xps-spi-2.02.a", "xlnx,xps-spi-2.00.a";
-			reg = < 0x820e0000 0x10000 >;
-			interrupt-parent = <&irq_control>;
-			interrupts = < 11 2 >;
-			xlnx,family = "spartan6";
-			xlnx,fifo-exist = <0x1>;
-			xlnx,num-ss-bits = <0x4>;
-			xlnx,num-transfer-bits = <0x8>;
-			xlnx,sck-ratio = <0x20>;
-                        spidev@0{
-                                compatible="spidev";
-                                reg = < 0 >; 
-                                spi-max-frequency= <50000000>;
-                        };
-                        spidev@1{
-                                compatible="spidev";
-                                reg = < 1 >; 
-                                spi-max-frequency= <50000000>;
-                        };
-                        spidev@2{
-                                compatible="spidev";
-                                reg = < 2 >;
-                                spi-max-frequency= <50000000>;
-                        };
-                        spidev@3{
-                                compatible="spidev";
-                                reg = < 3 >;
-                                spi-max-frequency= <50000000>;
-                        };
 		} ;
 	} ;
 }  ;
