@@ -31,7 +31,6 @@
 
 #define CONFIG_FIRMWARE_UPDATE
 #define SKIP_IMAGECRCS_CHECK
-#define MINI_EXPANDER
 
 /* UARTLITE0 is used for MDM. Use UARTLITE1 for Microblaze */
 
