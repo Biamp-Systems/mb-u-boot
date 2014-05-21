@@ -556,12 +556,12 @@ int CheckFirmwareUpdate(void)
         //modify fdt
         run_command(fdtmac0, 0);
       }
-      if(fdt1) {
+      /*if(fdt1) {
         sprintf(fdtmac1, "fdt set /plb@0/ethernet@82070000 local-mac-address [%02x %02x %02x %02x %02x %02x]",
                 macaddr[10], macaddr[11], macaddr[12], macaddr[13], macaddr[14], macaddr[15]);
         //modify fdt
         run_command(fdtmac1, 0);
-      }
+      }*/
       //change the boot FDT location
       run_command("set bootfdt 0x88F80000", 0);
     }
