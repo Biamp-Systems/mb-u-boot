@@ -507,7 +507,7 @@ int CheckFirmwareUpdate(void)
 
     memcpy(macaddr, (void *) macsStart, 16);
 
-    printf("Flash-based MAC addresses (with prefix bytes) are:\n");
+    printf("Flash-based MAC addresses (with prefix bytes, @%08X) are:\n", macsStart);
     printf("eth0: %02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X\n", 
            macaddr[0], macaddr[1], macaddr[2], macaddr[3], 
            macaddr[4], macaddr[5], macaddr[6], macaddr[7]);
@@ -540,7 +540,7 @@ int CheckFirmwareUpdate(void)
   
     //only bother loading up the device tree and booting from it if there is a valid address
     if(fdt0 || fdt1) {
-      run_command("cp.b 0x87240000 0x88F80000 0x00020000", 0);
+      run_command("cp.b ${fdtstart} 0x88F80000 ${fdtsize}", 0);
       run_command("fdt addr 0x88F80000 0x00020000", 0);
     
       if(fdt0) {
