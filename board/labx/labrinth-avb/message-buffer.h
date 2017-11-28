@@ -41,9 +41,10 @@ typedef enum {
 } CommonServiceCode;
 
 typedef enum {
-  k_SC_sendCommand         = (MIN_SERVICE_CODE    ),
-  k_SC_startFirmwareUpdate = (MIN_SERVICE_CODE + 1),
-  k_SC_sendDataPacket      = (MIN_SERVICE_CODE + 2),
+  k_SC_sendCommand             = (MIN_SERVICE_CODE    ),
+  k_SC_startFirmwareUpdate     = (MIN_SERVICE_CODE + 1),
+  k_SC_sendDataPacket          = (MIN_SERVICE_CODE + 2),
+  k_SC_readEnvironmentVariable = (MIN_SERVICE_CODE + 3),
 } FirmwareUpdateServiceCode;
 
 typedef enum {
@@ -82,6 +83,7 @@ extern uint16_t getPayloadOffset_resp(ResponseMessageBuffer_t msg);
 extern uint16_t sequence_t_uint8_t_marshal(ResponseMessageBuffer_t request, uint32_t offset, sequence_t_uint8_t *data);
 extern uint16_t sequence_t_uint8_t_unmarshal(ResponseMessageBuffer_t request, uint32_t offset, sequence_t_uint8_t *data);
 extern uint16_t string_t_unmarshal(ResponseMessageBuffer_t request, uint32_t offset, string_t *str);
+extern uint16_t string_t_marshal(ResponseMessageBuffer_t request, uint32_t offset, string_t *str);
 
 /* Marshalling utility methods */
 extern uint32_t uint8_t_marshal(MessageBuffer_t msg, uint32_t offset, uint8_t value);

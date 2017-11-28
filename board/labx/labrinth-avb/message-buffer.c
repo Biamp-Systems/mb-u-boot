@@ -71,6 +71,15 @@ uint16_t string_t_unmarshal(RequestMessageBuffer_t request, uint32_t offset, str
   return(4+size);
 }
 
+uint16_t string_t_marshal(RequestMessageBuffer_t request, uint32_t offset, string_t *str)
+{
+  uint32_t size = strlen(*str) + 1;
+  memcpy(&request[offset], &size, 4);
+  memcpy(&request[offset + 4], *str, size);
+
+  return 4 + size;
+}
+
 uint16_t sequence_t_uint8_t_unmarshal(RequestMessageBuffer_t request, uint32_t offset, sequence_t_uint8_t *data)
 {
   uint16_t sequenceOffset=0;

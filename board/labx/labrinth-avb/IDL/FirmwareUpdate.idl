@@ -77,6 +77,16 @@ module FirmwareUpdate
      *         firmware update context is in progress.
      */
     AvbDefs::ErrorCode sendDataPacket(in FwData data);
+
+    /**
+     * Read a u-boot environment variable.
+     *
+     * @param varname - Environment variable to read
+     * @param varvalue - Environment variable value
+     *
+     * @return e_EC_SUCCESS upon success, e_EC_VARIABLE_NOT_PRESENT if the environment variable doesn't exist.
+     */
+    AvbDefs::ErrorCode readEnvironmentVariable(in string varname, out string varvalue);
   };
 
   interface Attributes

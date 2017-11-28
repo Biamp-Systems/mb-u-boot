@@ -257,6 +257,18 @@ AvbDefs__ErrorCode sendCommand(string_t cmd) {
   return(returnValue);
 }
 
+AvbDefs__ErrorCode readEnvironmentVariable(string_t varname, string_t *varvalue) {
+  int returnValue = e_EC_SUCCESS;
+  char *envString = getenv(varname);
+  if (NULL == envString) {
+    returnValue = e_EC_VARIABLE_NOT_PRESENT;
+  } else {
+    *varvalue = envString;
+  }
+
+  return(returnValue);
+}
+
 /* Statically-allocated request and response buffers for use with IDL */
 static RequestMessageBuffer_t request;
 static ResponseMessageBuffer_t response;
