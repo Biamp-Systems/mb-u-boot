@@ -1381,7 +1381,10 @@ int write_buff (flash_info_t * info, uchar * src, ulong addr, ulong cnt)
 		i = buffered_size - (wp % buffered_size);
 		if (i > cnt)
 			i = cnt;
-		if ((rc = flash_write_cfibuffer (info, wp, src, i)) != ERR_OK)
+		int retry = 0;
+		while (((rc = flash_write_cfibuffer (info, wp, src, i)) != ERR_OK) && retry < 3) retry++;
+
+		if (retry >= 3)
 			return rc;
 		i -= i & (info->portwidth - 1);
 		wp += i;
